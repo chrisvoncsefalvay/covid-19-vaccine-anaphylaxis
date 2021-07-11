@@ -1,0 +1,103 @@
+%! Author = csefalvayk
+%! Date = 7/11/21
+\documentclass{article}
+\usepackage{amsfonts}
+\usepackage{url}
+\usepackage{booktabs}
+
+
+% Bibliography styling
+\usepackage[super,square,sort&compress,numbers]{natbib}
+\bibliographystyle{unsrtnat}
+\usepackage{graphicx}
+\usepackage{hyperref}
+
+\title{Anaphylaxis following COVID-19 vaccination: a reporting case-control study}
+
+% Authors, for the paper (add full first names)
+\author{Chris von Csefalvay\thanks{Starschema Inc., Arlington, VA. Correspondence: \texttt{csefalvayk@starschema.net}.}}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+    TBD.
+\end{abstract}
+
+\section{Introduction}
+
+Anaphylaxis describes a severe systemic allergic reaction to an antigen, resulting in large-scale mast cell degranulation and, consequently, histamine release.\cite{metcalfe2009mechanisms}
+In clinical practice, it typically manifests as an acute onset of respiratory symptoms, bronchoconstriction, urticaria, flushing, gastrointestinal symptoms (nausea, vomiting, diarrhoea) and reduced blood pressure.\cite{lee2011anaphylaxis}
+Anaphylactic reactions to vaccines, while fortunately vanishingly rare, are well-documented in relation to a wide range of vaccines.\cite{su2019anaphylaxis,kelso1999anaphylaxis,kelso1993anaphylaxis,nagao2016highly}
+The COVID-19 vaccines approved in the United States (BNT162b2/tozinameran, mRNA-1273/elasomeran and Ad26.COV2.S, known as the Pfizer/BioNTech, Moderna and Janssen vaccines, respectively) are no exception in this regard.
+Rare episodes of anaphylaxis have been documented in the context of the Moderna\cite{covid2021allergicmoderna} and the Pfizer/BioNTech vaccine as well.\cite{shimabukuro2021allergic}
+
+Because of the severity and, absent rapid and appropriate medical intervention, life-threatening nature of anaphylactic reactions, severe allergic adverse events have been key drivers behind vaccine hesitancy.\cite{tulloch2021covid,marcec2021postvaccination,jacobson2015vaccine}
+This paper presents a reporting case-control approach to the systematic evaluation of COVID-19 vaccine related anaphylactic and anaphylactoid events.
+The analysis is based on reports made to VAERS, a passive reporting system maintained jointly by the CDC and the FDA.\cite{singleton1999overview,chen1994vaccine}
+As a reporting study, it is necessarily limited by the inherent shortcomings of passive reporting, including underreporting, overreporting and differential reporting.
+It does, however, enable us to make conclusions about the low relative risk of anaphylaxis from COVID-19 vaccines in comparison with other immunisations.
+
+\section{Materials and methods}
+
+\subsection{Data sources}
+
+Data on adverse events following immunisations was obtained from VAERS via \url{vaers.hhs.gov}, comprising 1,072,351 patient entries, in respect of 1,421,356 distinct vaccination events.
+Once entries with missing age, gender or unknown vaccine type superclass (VAERS variable \texttt{VAX\_TYPE} of value \texttt{UNK}) were filtered, 1,255,169 distinct reports remained.
+Data loading and management was carried out using Python 3.7.5 and \texttt{pandas} 1.3.0.\cite{mckinney2011pandas}
+
+\subsection{Identifying cases}\label{subsec:identifying-cases}
+
+Cases were identified through reported anaphylactic symptoms.
+For the purposes of this study, a report was considered a case if one or more of the following MedDRA terms:
+
+
+\subsection{Identifying controls}
+
+
+\subsection{Identifying exposure}
+
+
+\subsection{Case-control matching}
+
+
+\subsection{Statistical analysis}
+
+\section{Results}
+
+
+
+\section{Discussion}
+
+\subsection{Limitations}
+
+\section{Conclusion}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\vspace{6pt}
+
+\section*{Supplementary material}
+
+Supplementary material S1, a CSV (comma-separated values) version of the data underlying Figure~, is available as part of DOI 10.5281/zenodo.XXXXX.
+
+\section*{Funding}
+
+This research was funded by Starschema Inc. under its intramural research funding programme.
+
+\section*{Data availability}
+
+VAERS reporting data is available from the CDC's website at \url{https://vaers.hhs.gov}.
+All code and scripts supporting this manuscript are deposited at
+\url{https://github.com/chrisvoncsefalvay/covid-19-vaccine-anaphylaxis} and are made available under the DOI 10.5281/zenodo.XXXXXX.
+
+\section*{Conflicts of interest}
+
+CvC is a consultant to a company that may be affected by the research reported in this paper.
+The funders had no role in the design of the study;
+in the collection, analysis, or interpretation of data;
+in the writing of the manuscript, or in the decision to publish the~results.
+
+\bibliography{bibliography}
+
+\end{document}
