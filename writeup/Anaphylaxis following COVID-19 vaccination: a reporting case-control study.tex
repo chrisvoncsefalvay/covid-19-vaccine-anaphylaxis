@@ -4,6 +4,7 @@
 \usepackage{amsfonts}
 \usepackage{url}
 \usepackage{booktabs}
+\usepackage{multirow}
 
 
 % Bibliography styling
@@ -12,7 +13,7 @@
 \usepackage{graphicx}
 \usepackage{hyperref}
 
-\title{Anaphylaxis following COVID-19 vaccination: a reporting case-control study}
+\title{Anaphylactic events in mRNA vaccines: a case-control reporting study}
 
 % Authors, for the paper (add full first names)
 \author{Chris von Csefalvay\thanks{Starschema Inc., Arlington, VA. Correspondence: \texttt{csefalvayk@starschema.net}.}}
@@ -27,17 +28,37 @@
 
 \section{Introduction}
 
+\subsection{Background}
+
 Anaphylaxis describes a severe systemic allergic reaction to an antigen, resulting in large-scale mast cell degranulation and, consequently, histamine release.\cite{metcalfe2009mechanisms}
 In clinical practice, it typically manifests as an acute onset of respiratory symptoms, bronchoconstriction, urticaria, flushing, gastrointestinal symptoms (nausea, vomiting, diarrhoea) and reduced blood pressure.\cite{lee2011anaphylaxis}
 Anaphylactic reactions to vaccines, while fortunately vanishingly rare, are well-documented in relation to a wide range of vaccines.\cite{su2019anaphylaxis,kelso1999anaphylaxis,kelso1993anaphylaxis,nagao2016highly}
-The COVID-19 vaccines approved in the United States (BNT162b2/tozinameran, mRNA-1273/elasomeran and Ad26.COV2.S, known as the Pfizer/BioNTech, Moderna and Janssen vaccines, respectively) are no exception in this regard.
-Rare episodes of anaphylaxis have been documented in the context of the Moderna\cite{covid2021allergicmoderna} and the Pfizer/BioNTech vaccine as well.\cite{shimabukuro2021allergic}
+The COVID-19 vaccines approved in the United States (BNT162b2/tozinameran, commonly known as the Pfizer/BioNTech vaccine, and mRNA-1273/elasomeran, commonly known as the Moderna vaccine) are no exceptions in this regard.
+Rare episodes of anaphylaxis have been documented in the context of both the Moderna\cite{covid2021allergicmoderna} and the Pfizer/BioNTech vaccine.\cite{shimabukuro2021allergic}
 
 Because of the severity and, absent rapid and appropriate medical intervention, life-threatening nature of anaphylactic reactions, severe allergic adverse events have been key drivers behind vaccine hesitancy.\cite{tulloch2021covid,marcec2021postvaccination,jacobson2015vaccine}
-This paper presents a reporting case-control approach to the systematic evaluation of COVID-19 vaccine related anaphylactic and anaphylactoid events.
-The analysis is based on reports made to VAERS, a passive reporting system maintained jointly by the CDC and the FDA.\cite{singleton1999overview,chen1994vaccine}
-As a reporting study, it is necessarily limited by the inherent shortcomings of passive reporting, including underreporting, overreporting and differential reporting.
-It does, however, enable us to make conclusions about the low relative risk of anaphylaxis from COVID-19 vaccines in comparison with other immunisations.
+Since the Pfizer/BioNTech and Moderna vaccines represent the first prophylactic mRNA based vaccines in wider public health use, understanding the true risk of anaphylaxis from these vaccines is crucial to address vaccine hesitancy and safeguard the goals of the COVID-19 vaccination programmes worldwide.
+
+\subsection{Objectives}
+
+The objective of this study was threefold:
+
+\begin{enumerate}
+    \item to investigate the effect of mRNA vaccination versus a non-mRNA vaccination on the likelihood of reporting an anaphylactic symptom to VAERS as opposed to a non-anaphylactic symptom,
+    \item to quantify whether this effect is homogenous across strata of age group and gender, and
+    \item to identify whether certain self-reported allergies are associated with a higher likelihood of reporting an anaphylactic symptom to VAERS as opposed to a non-anaphylactic symptom.
+\end{enumerate}
+
+\section{Methods}
+
+\subsection{Study design}
+
+A case-control study, adhering to the STROBE Statement's methodology and best practices,\cite{von2014strengthening} was performed on reports to VAERS received between 01 January 2000 and 02 July 2021.
+Reports were excluded if they did not name a specific vaccine type (VAERS parameter \texttt{VAX\_TYPE} of \texttt{UNK}), or if they pertained to an unidentified COVID-19 vaccine (VAERS parameter \texttt{VAX\_NAME} of \texttt{COVID19 (COVID19 (UNKNOWN))}).
+Reports were also excluded if they did not record a state of administration within the United States.
+Cases of anaphylaxis were identified by the VAERS symptom description, and mRNA vaccines by the name of the specific vaccine in respect of which the report was made.
+These were matched against controls from the same subset of VAERS reports that reported non-anaphylactic reactions, with matching by age (rounded to the nearest integer) and reported gender.
+Comparative statistical analyses were then used to determine statistical associations of risk.
 
 \section{Materials and methods}
 
@@ -49,8 +70,53 @@ Data loading and management was carried out using Python 3.7.5 and \texttt{panda
 
 \subsection{Identifying cases}\label{subsec:identifying-cases}
 
-Cases were identified through reported anaphylactic symptoms.
-For the purposes of this study, a report was considered a case if one or more of the following MedDRA terms:
+Cases were defined as reports to VAERS that reported one of four anaphylactic conditions.
+These were selected from the Preferred Terms (PTs) that are classified by the MedDRA High Level Term (HLT) of Anaphylactic and anaphylactoid responses (MedDRA ID 10077535), under the explicit exclusion of three PTs that have no relevance for vaccine administration: dialysis membrane reactions (MedDRA ID 10076665), anaphylactic transfusion reactions (MedDRA ID 10067113) and anaphylactoid syndrome of pregnancy (MedDRA ID 10067010).
+The ontology of the included diagnostic categories is presented in Table~\ref{tab:meddra-inclusion-ontology}.
+
+\begin{table}[H]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}llll@{}}
+\toprule
+\multicolumn{1}{c}{\textbf{SOC}} &
+  \multicolumn{1}{c}{\textbf{HLGT}} &
+  \multicolumn{1}{c}{\textbf{HLT}} &
+  \multicolumn{1}{c}{\textbf{PT}} \\ \midrule
+\multirow{7}{*}{\begin{tabular}[c]{@{}l@{}}Immune system disorders\\ 10021428\end{tabular}} &
+  \multirow{7}{*}{\begin{tabular}[c]{@{}l@{}}Allergic conditions\\ 10001708\end{tabular}} &
+  \multirow{7}{*}{\begin{tabular}[c]{@{}l@{}}Anaphylactic and\\ anaphylactoid\\ responses\\ 10077535\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}l@{}}Anaphylactic reaction\\ 10002198\end{tabular}} \\ \cmidrule(l){4-4}
+ &
+   &
+   &
+  \textbf{\begin{tabular}[c]{@{}l@{}}Anaphylactic shock\\ 10002199\end{tabular}} \\ \cmidrule(l){4-4}
+ &
+   &
+   &
+  \textbf{\begin{tabular}[c]{@{}l@{}}Anaphylactoid reaction\\ 10002216\end{tabular}} \\ \cmidrule(l){4-4}
+ &
+   &
+   &
+  \textbf{\begin{tabular}[c]{@{}l@{}}Anaphylactoid shock\\ 10063119\end{tabular}} \\ \cmidrule(l){4-4}
+ &
+   &
+   &
+  \begin{tabular}[c]{@{}l@{}}Dialysis membrane reaction\\ 10076665\end{tabular} \\ \cmidrule(l){4-4}
+ &
+   &
+   &
+  \begin{tabular}[c]{@{}l@{}}Anaphylactic transfusion reaction\\ 10067113\end{tabular} \\ \cmidrule(l){4-4}
+ &
+   &
+   &
+  \begin{tabular}[c]{@{}l@{}}Anaphylactoid syndrome\\ of pregnancy\\ 10067010\end{tabular} \\ \bottomrule
+\end{tabular}%
+}
+\caption{MedDRA ontology of included diagnostic categories.
+Preferred Terms that are considered an anaphylactic reaction are set in bold type.}
+\label{tab:meddra-inclusion-ontology}
+\end{table}
 
 
 \subsection{Identifying controls}
