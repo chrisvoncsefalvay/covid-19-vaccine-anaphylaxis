@@ -1,0 +1,62 @@
+\begin{center}
+  \sffamily
+  \footnotesize
+  \begin{tikzpicture}[auto,
+    %decision/.style={diamond, draw=black, thick, fill=white,
+    %text width=8em, text badly centered,
+    %inner sep=1pt, font=\sffamily\small},
+    block_center/.style ={rectangle, draw=black, thick, fill=white,
+      text width=8em, text centered,
+      minimum height=4em},
+    block_source/.style ={rectangle, draw=black, thick, fill=white,
+      text width=24em, text centered,
+      minimum height=4em},
+    block_left/.style ={rectangle, draw=black, thick, fill=white,
+      text width=20em, text ragged, minimum height=4em, inner sep=6pt},
+    block_noborder/.style ={rectangle, draw=none, thick, fill=none,
+      text width=18em, text centered, minimum height=1em},
+    block_assign/.style ={rectangle, draw=black, thick, fill=white,
+      text width=18em, text ragged, minimum height=3em, inner sep=6pt},
+    block_lost/.style ={rectangle, draw=black, thick, fill=white,
+      text width=16em, text ragged, minimum height=3em, inner sep=6pt},
+      line/.style ={draw, thick, -latex'}]
+    % outlining the flowchart using the PGF/TikZ matrix funtion
+    \matrix [column sep=5mm,row sep=8mm] {
+      % row 1
+      \node [block_source] (loaded_vaers) {All VAERS reports between\\01 January 2000 and 02 July 2021\\(\textit{n}=\textbf{1,018,240})}; \\
+      \node [block_center] (filter_age_sex) {Filter age and sex values (\textit{n}=\textbf{858,996})};
+      & \node [block_left] (exclude_age_sex) {Excluded (\textit{n}=\textbf{159,244}):\\
+                  \h Unknown or unspecified age (\textit{n}=\textbf{140,270})\\
+                  \h Unknown or unspecified sex (\textit{n}=\textbf{18,974})}; \\
+      \node [block_center] (filter_unknown_vax) {Filter unknown vaccines (\textit{n}=\textbf{853,592})};
+      & \node [block_left] (exclude_unknown_vax) {Excluded (\textit{n}=\textbf{5,404}):\\
+                  \h Unknown vaccine type (\textit{n}=\textbf{4,660})\\
+                  \h Unknown COVID-19 vaccine (\textit{n}=\textbf{744})};\\
+      \node [block_center] (anaphylaxis) {Determining anaphylactic aetiology}; \\
+      \node [block_assign] (cases) {Cases (anaphylactic presentations)\\(\textit{n}=\textbf{2,665})\\
+                  \h Comprises \\
+                    \hh anaphylactic shock,\\
+                    \hh anaphylactic reaction,\\
+                    \hh anaphylactoid shock, and\\
+                    \hh anaphylactoid reaction};
+      & \node [block_assign] (controls) {Controls (non-anaphylactic presentations)\\(\textit{n}=\textbf{850,927})}; \\
+      \node [block_center] (matching) {Matching}; \\
+      \node [block_assign] (matched_cases) {Matched cases\\(\textit{n}=\textbf{2,665})};
+      & \node [block_assign] (matched_controls) {Matched controls\\(\textit{n}=\textbf{7,125})}; \\
+    };% end matrix
+    % connecting nodes with paths
+    \begin{scope}[every path/.style=line]
+      \path (loaded_vaers)   -- (filter_age_sex);
+      \path (filter_age_sex)   -- (filter_unknown_vax);
+      \path (filter_age_sex)   -- (exclude_age_sex);
+      \path (filter_unknown_vax)  -- (exclude_unknown_vax);
+      \path (filter_unknown_vax)   -- (anaphylaxis);
+      \path (anaphylaxis)  -- (cases) coordinate [midway](phoney1);
+      \path (phoney1)  -| (controls);
+      \path (cases)  -- (matching) coordinate [midway](phoney2);
+      \path (matching)  -- (matched_cases) coordinate [midway](phoney3);
+      \path (controls)  |- (phoney2);
+      \path (phoney3)  -| (matched_controls);
+    \end{scope}
+  \end{tikzpicture}
+\end{center}
