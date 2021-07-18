@@ -10,6 +10,7 @@
 \usepackage[cal=boondoxo]{mathalfa}
 \usepackage{amsfonts}
 \usepackage{url}
+\usepackage[table,xcdraw]{xcolor}
 \usepackage{booktabs}
 \usepackage{multirow}
 \usepackage{tikz}
@@ -54,7 +55,7 @@ Rare episodes of anaphylaxis have been documented in the context of both the Mod
 Because of the severity and, absent rapid and appropriate medical intervention, life-threatening nature of anaphylactic reactions, severe allergic adverse events have been key drivers behind vaccine hesitancy.\cite{tulloch2021covid,marcec2021postvaccination,jacobson2015vaccine}
 Since the Pfizer/BioNTech and Moderna vaccines represent the first prophylactic mRNA based vaccines in wider public health use, understanding the true risk of anaphylaxis from these vaccines is crucial to address vaccine hesitancy and safeguard the goals of the COVID-19 vaccination programmes worldwide.
 
-\subsection{Objectives}
+\subsection{Objectives}\label{subsec:objectives}
 
 The objective of this study was threefold:
 
@@ -176,14 +177,62 @@ A report was deemed to pertain to an mRNA vaccine if the vaccine administered ha
 \subsection{Case-control matching}
 
 In order to reduce the confounding impacts of biological sex (due to the greater propensity of women to develop anaphylactic presentations) and age (due to the unusual age profile of the COVID-19 vaccinated demographic owing to the focus of early vaccination campaigns on the elderly and vulnerable), matching was performed over age (rounded to the nearest integer) and biological sex.
+Matching was performed over the exact age, even if age banding is used later for stratification, so as to avoid 'edge effects' where inhomogenous distributions of cases within a stratum, peaking towards one or both of the margins, create additional confounding.
+Separability was relatively weak but present at 55.51\% accuracy over 100 balanced models, suggesting that the benefits of matching might be modest but perceptible.
 The 2,665 cases were matched to 7,125 controls using the propensity matching functionality of \texttt{pymatch}.
 This gives an overall case:control ratio of 2.673 controls per case.
+
 At an assumed 40\% exposure rate among controls, a power of 0.95 at a 95\% two-sided confidence level for an odds ratio at or above 1.5 would require between 437 and 453 cases and 1,168 to 1,211 controls, depending on whether Kelsey's or Fleiss's corrected method is used.\cite{kelsey1996methods,fleiss2013statistical}
 At almost six times the required value, this case-control ratio gives a fairly high predictive power for odds ratios at least as extreme as 1.5.
+The characteristics of the cases and the controls after matching are presented in Table~\ref{tab:case-control-characteristics}.
+
+\begin{table}[]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}lll@{}}
+\toprule
+ & \begin{tabular}[c]{@{}l@{}}Cases\\ (n = 2,665)\end{tabular} & \begin{tabular}[c]{@{}l@{}}Controls\\ (n = 7,125)\end{tabular} \\ \midrule
+Sex                   &                    &                    \\
+\rowcolor[HTML]{EFEFEF}
+Male                  & 732 (28\%)         & 1,788 (25\%)       \\
+\rowcolor[HTML]{C0C0C0}
+Female                & 1,933 (72\%)       & 5,337 (75\%)       \\
+Age group             &                    &                    \\
+\rowcolor[HTML]{EFEFEF}
+\textless{}18         & 596 (22\%)         & 1549 (22\%)        \\
+\rowcolor[HTML]{C0C0C0}
+19-25                 & 185 (7\%)          & 448 (6\%)          \\
+\rowcolor[HTML]{EFEFEF}
+26-35                 & 368 (14\%)         & 924 (13\%)         \\
+\rowcolor[HTML]{C0C0C0}
+36-45                 & 483 (18\%)         & 1,267 (18\%)       \\
+\rowcolor[HTML]{EFEFEF}
+46-55                 & 433 (16\%)         & 1,147 (16\%)       \\
+\rowcolor[HTML]{C0C0C0}
+56-65                 & 326 (12\%)         & 955 (13\%)         \\
+\rowcolor[HTML]{EFEFEF}
+66-75                 & 196 (7\%)          & 538 (8\%)          \\
+\rowcolor[HTML]{C0C0C0}
+76-85                 & 68 (3\%)           & 231 (3\%)          \\
+\rowcolor[HTML]{EFEFEF}
+86-95                 & 7 (\textless{}1\%) & 61 (1\%)           \\
+\rowcolor[HTML]{C0C0C0}
+\textgreater{}95      & 0 (0\%)            & 3 (\textless{}1\%) \\ \midrule
+mRNA vaccine exposure &                    &                    \\
+\rowcolor[HTML]{EFEFEF}
+Yes                   & 1,352 (51\%)       & 3,116 (56\%)       \\
+\rowcolor[HTML]{C0C0C0}
+No                    & 1,313 (49\%)       & 4,009 (44\%)
+\end{tabular}%
+}
+\caption{Descriptive statistics and exposure data of cases and controls.}
+\label{tab:case-control-characteristics}
+\end{table}
 
 \subsection{Statistical analysis}
 
-Statistical analysis was carried out in three distinct steps.
+For the purposes of stratification (but not matching), ages were divided into age bands, with a separate age band for persons under the age of 18, 18-25 and thereafter in ten-year increments until the age of 95.
+A residual age band for persons aged 96 and above was constructed. Following this segmentation, the analysis proceeded in three stages.
 
 First, crude odds ratios were calculated for the entire sample before matching, along with pooled odds ratios by biological sex and age band.
 For the analysis of stratified contingency tables, the Breslow-Day statistics were used to test for the homogeneity of odds ratios and the Cochran-Mantel-Haenszel test was used to arrive at a pooled odds ratio.
@@ -221,9 +270,77 @@ For the statistical analysis of stated allergies, only entries with a valid entr
 
 \section{Results}
 
+\subsection{Anaphylactic events and mRNA vaccination}
+
+The reporting odds ratio (ROR) of anaphylactic events among mRNA vaccination versus other events and non-mRNA vaccines was 1.325 (95\% CI: 1.212 -- 1.448).
+This result was statistically significant at $p < 0.001$.
+This ROR is highly statistically significant, but quite close to unity, indicating the absence of a strong statistical association between anaphylactic events and mRNA vaccination.
+Persons reporting an anaphylactic event are thus, as hypothesised (see Subsection~\ref{subsec:objectives}), not significantly more likely to have received an mRNA vaccine than a non-mRNA vaccine.
+
+\subsection{Gender and anaphylaxis risk}
+
+It was one of our initial hypotheses that the ROR of anaphylactic events after mRNA vaccines would be slightly higher for women due to the overall higher prevalence of anaphylaxis in female populations, but that such difference would not be highly statistically significant (see Subsection~\ref{subsec:objectives}]).
+This is confirmed by the results of our analysis.
+
+The ROR for female participants was slightly higher than for male participants, and unlike for the latter group, it was statistically significant.
+The Breslow-Day test, significant at $p < 0.05$, indicates statistically significant homogeneity between gender strata.
+The Cochran-Mantel-Haenszel statistic, significant at $p < 0.001$, indicates a high likelihood of a common ROR of unity.
+
+Consequently, the data appears to strongly confirm that after matching, gender is not a factor of significant influence on the reported association between mRNA vaccines and reports of anaphylaxis.
+This analysis thus does not evidence a statistically significant gender-dependent differential risk of anaphylaxis.
+
+\subsection{Age and anaphylaxis risk}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=12.5 cm]{forest_plot_of_anaphylaxis_by_age}
+\caption{Forest plot of reporting odds ratio of anaphylactic reactions upon receipt of an mRNA vaccine by age band.}
+\label{fig:age-forest-plot}
+\end{figure}
+
+The pooled odds ratio by age bands was 1.441 (95\% CI: 1.302 -- 1.593).
+The Breslow-Day test, significant at $p < 0.005$, indicates that despite small inhomogeneities that derive from the characteristic age-dependent demographics of anaphylaxis,\cite{lee2011anaphylaxis} the recipient's age band also was not a statistically significant confounder after matching.
+The Cochran-Mantel-Haenszel statistic, which was significant at $p < 0.001$, confirmed a common ROR of unity.
+
+As Figure~\ref{fig:age-forest-plot} indicates, only five age bands (26 -- 35, 46 -- 55, 56 -- 65, 66 -- 76 and 76 -- 85) show statistically significant results.
+In all of these cases, the reporting odds ratio is modestly above unity but below 2.0, the minimum value commonly agreed to be the lowest possible cut-off for signal generation.
+Taken together, it appears from the data that the risk of anaphylactic reactions is not strongly associated with the recipient's age.
+Consequently, no age-dependent safety signals vis-a-vis anaphylaxis emerge from this analysis, and mRNA vaccines are according to this data not statistically significantly less safe than non-mRNA vaccines, regardless of age group.
+
+\subsection{Previous allergies and anaphylaxis risk}
+
+Of the 17 classes of allergens isolated from the \texttt{ALLERGY} free text field, 14 (82.4\%) were detected in both the control and case groups.
+Breslow-Day analysis indicated that the strata were not significantly homogenous ($p = 0.204$).
+This is highly suggestive of significant differences among allergic predispositions and anaphylaxis in mRNA vaccines.
+
+Of the 14 relevant categories of allergies, only two were statistically significant.
+It is notable that these two were also the highest RORs, and the only RORs exceeding 2 (see Figure~\ref{fig:allergies-forest-plot}).
+Pre-existing allergies to NSAIDs (ROR: 3.382, 95\% CI: 1.362 -- 8.399, $p < 0.01$) and fluoroquinolone antibiotics (ROR: 5.586, 95\% CI: 1.119 -- 27.900) are associated with higher RORs of anaphylactic reactions.
+Notably, there is no statistically significant association between pre-existing reports of allergic events (of any severity) from other vaccines, which is in line with the fundamental biochemical and compositional differences between mRNA vaccines and non-mRNA vaccines.
+
+
+\begin{figure}
+\centering
+\includegraphics[width=12.5 cm]{forest_plot_of_anaphylaxis_by_known_allergies}
+\caption{Forest plot of reporting odds ratio of anaphylactic reactions upon receipt of an mRNA vaccine by reported prior allergic status.}
+\label{fig:allergies-forest-plot}
+\end{figure}
 
 
 \section{Discussion}
+
+\subsection{mRNA vaccines are not associated with a higher risk of anaphylaxis}
+
+We hypothesised that mRNA-based vaccines do not have a specific anaphylactogenic property, i.e. that they are not associated with a statistically significant elevated odds ratio in the whole population.
+The overall ROR after matching for age and gender confirms this
+
+
+
+It was hypothesised at the outset that the mRNA-based vaccines would not be associated with a statistically significant elevated odds ratio ($OR > 3.0$ at $p < 0.05$) in the whole-population samples.
+In addition, we hypothesised with respect to the breakdown by gender that while women would be slightly more likely to present with anaphylactic events due to the higher prevalence of anaphylaxis in women in general,\cite{salvati2019gender} the relative difference as measured by Breslow-Day statistics of contingency tables stratified by gender would not be statistically significant.
+We further hypothesised that age would also not play a significant role.
+It was expected that relative homogeneity and Cochran-Mantel-Haenszel statistics of age-stratified contingency tables would confirm a pooled odds ratio quite close to unity and a relatively high degree of homogeneity between age band strata.
+
 
 \subsection{Limitations}
 
