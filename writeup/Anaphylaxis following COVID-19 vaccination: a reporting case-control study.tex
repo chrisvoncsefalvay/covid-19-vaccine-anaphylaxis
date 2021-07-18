@@ -1,10 +1,23 @@
 %! Author = csefalvayk
 %! Date = 7/11/21
 \documentclass{article}
+\usepackage[T1]{fontenc}
+\usepackage[p,osf]{cochineal}
+\usepackage{setspace}
+\usepackage[scale=.95,type1]{cabin}
+\usepackage[cochineal,bigdelims,cmintegrals,vvarbb]{newtxmath}
+\usepackage[zerostyle=c,scaled=.94]{newtxtt}
+\usepackage[cal=boondoxo]{mathalfa}
 \usepackage{amsfonts}
 \usepackage{url}
 \usepackage{booktabs}
 \usepackage{multirow}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows}
+\usepackage{caption}
+\usepackage{float}
+\newcommand*{\h}{\hspace{5pt}}% for indentation
+\newcommand*{\hh}{\h\h}% double indentation
 
 
 % Bibliography styling
@@ -21,6 +34,8 @@
 \begin{document}
 
 \maketitle
+
+\onehalfspacing
 
 \begin{abstract}
     TBD.
@@ -49,24 +64,44 @@ The objective of this study was threefold:
     \item to identify whether certain self-reported allergies are associated with a higher likelihood of reporting an anaphylactic symptom to VAERS as opposed to a non-anaphylactic symptom.
 \end{enumerate}
 
+It was hypothesised at the outset that the mRNA-based vaccines would not be associated with a statistically significant elevated odds ratio ($OR > 3.0$ at $p < 0.05$) in the whole-population samples.
+In addition, we hypothesised with respect to the breakdown by gender that while women would be slightly more likely to present with anaphylactic events due to the higher prevalence of anaphylaxis in women in general,\cite{salvati2019gender} the relative difference as measured by Breslow-Day statistics of contingency tables stratified by gender would not be statistically significant.
+We further hypothesised that age would also not play a significant role.
+It was expected that relative homogeneity and Cochran-Mantel-Haenszel statistics of age-stratified contingency tables would confirm a pooled odds ratio quite close to unity and a relatively high degree of homogeneity between age band strata.
+
+
 \section{Methods}
 
 \subsection{Study design}
 
 A case-control study, adhering to the STROBE Statement's methodology and best practices,\cite{von2014strengthening} was performed on reports to VAERS received between 01 January 2000 and 02 July 2021.
 Reports were excluded if they did not name a specific vaccine type (VAERS parameter \texttt{VAX\_TYPE} of \texttt{UNK}), or if they pertained to an unidentified COVID-19 vaccine (VAERS parameter \texttt{VAX\_NAME} of \texttt{COVID19 (COVID19 (UNKNOWN))}).
-Reports were also excluded if they did not record a state of administration within the United States.
 Cases of anaphylaxis were identified by the VAERS symptom description, and mRNA vaccines by the name of the specific vaccine in respect of which the report was made.
 These were matched against controls from the same subset of VAERS reports that reported non-anaphylactic reactions, with matching by age (rounded to the nearest integer) and reported gender.
-Comparative statistical analyses were then used to determine statistical associations of risk.
 
-\section{Materials and methods}
+\begin{figure}
+    \centering
+    \input{patient_disposition.tikz}
+    \caption{Patient disposition flow chart.}
+    \label{fig:patient_disposition}
+\end{figure}
+
+Comparative statistical analyses were then utilised to determine statistical associations of risk.
+In particular, stratified odds ratios were calculated for both the crude and the age- and gender-matched sets of reports by gender, age band and reported pre-existing hypersensitivities.
+Cochran-Mantel-Haenszel statistics were used to determine pooled reporting odds ratios by strata, while inter-strata homogeneity was tested using the Breslow-Day metric.
 
 \subsection{Data sources}
 
-Data on adverse events following immunisations was obtained from VAERS via \url{vaers.hhs.gov}, comprising 1,072,351 patient entries, in respect of 1,421,356 distinct vaccination events.
-Once entries with missing age, gender or unknown vaccine type superclass (VAERS variable \texttt{VAX\_TYPE} of value \texttt{UNK}) were filtered, 1,255,169 distinct reports remained.
-Data loading and management was carried out using Python 3.7.5 and \texttt{pandas} 1.3.0.\cite{mckinney2011pandas}
+Data on adverse events following immunisations was obtained from VAERS via \url{vaers.hhs.gov} on 12 July 2021.
+The data files from 2000 onwards were loaded and processed using Python 3.7.5 (Python Software Foundation, Fredericksburg, VA) and version 1.3.0 of the \texttt{pandas} package.\cite{mckinney2011pandas}
+Ingested raw data thus included reports received by VAERS between 01 January 2000 and 02 July 2021.
+Altogether, 1,018,240 reports were ingested in respect of the period under examination.
+
+Of these, we have excluded 140,270 reports for a failure to state a valid age and 18,974 reports for specifying no or unknown biological sex.
+In addition, 4,660 reports were excluded for disclosing an unknown vaccine type (\texttt{VAX\_TYPE} VAERS attribute of value \texttt{UNK}) and 744 reports were excluded for documenting the administration of an unknown COVID-19 vaccine (\texttt{VAX\_NAME} VAERS attribute of \texttt{COVID19 (COVID19 (UNKNOWN))}).
+Following these exclusions, 853,592 eligible reports were processed.
+
+A flow chart of this process is presented as Figure~\ref{fig:patient_disposition}.
 
 \subsection{Identifying cases}\label{subsec:identifying-cases}
 
@@ -118,17 +153,71 @@ Preferred Terms that are considered an anaphylactic reaction are set in bold typ
 \label{tab:meddra-inclusion-ontology}
 \end{table}
 
+While MedDRA offers a Standardised MedDRA Query (SMQ) corresponding to anaphylaxis, this includes a wide range of clinical entities.
+Some would introduce unnecessary confounders (such as hereditary anaphylactic disorders like C1 esterase deficiency), while others would lay the analysis open to clearly unconnected events (such as transfusion related anaphylactic events).
+For this reason, we chose to construe anaphylaxis narrowly.
+This yielded 2,665 cases of anaphylactic or anaphylactoid symptoms.
 
 \subsection{Identifying controls}
 
+We defined the possible pool of controls as any eligible reports that did not disclose an anaphylactic presentation.
+850,927 eligible reports constituted the pool of potential controls.
 
 \subsection{Identifying exposure}
 
+Exposure was defined as the receipt of an mRNA vaccine, regardless of the order of administration.
+A report was deemed to pertain to an mRNA vaccine if the vaccine administered had a \texttt{VAX\_NAME} VAERS attribute of
+
+\begin{itemize}
+    \item \texttt{COVID19 (COVID19 (MODERNA))} (elasomeran), or
+    \item \texttt{COVID19 (COVID19 (PFIZER-BIONTECH))} (tozinameran).
+\end{itemize}
 
 \subsection{Case-control matching}
 
+In order to reduce the confounding impacts of biological sex (due to the greater propensity of women to develop anaphylactic presentations) and age (due to the unusual age profile of the COVID-19 vaccinated demographic owing to the focus of early vaccination campaigns on the elderly and vulnerable), matching was performed over age (rounded to the nearest integer) and biological sex.
+The 2,665 cases were matched to 7,125 controls using the propensity matching functionality of \texttt{pymatch}.
+This gives an overall case:control ratio of 2.673 controls per case.
+At an assumed 40\% exposure rate among controls, a power of 0.95 at a 95\% two-sided confidence level for an odds ratio at or above 1.5 would require between 437 and 453 cases and 1,168 to 1,211 controls, depending on whether Kelsey's or Fleiss's corrected method is used.\cite{kelsey1996methods,fleiss2013statistical}
+At almost six times the required value, this case-control ratio gives a fairly high predictive power for odds ratios at least as extreme as 1.5.
 
 \subsection{Statistical analysis}
+
+Statistical analysis was carried out in three distinct steps.
+
+First, crude odds ratios were calculated for the entire sample before matching, along with pooled odds ratios by biological sex and age band.
+For the analysis of stratified contingency tables, the Breslow-Day statistics were used to test for the homogeneity of odds ratios and the Cochran-Mantel-Haenszel test was used to arrive at a pooled odds ratio.
+Statistical analysis used the \texttt{StratifiedTable} class of \texttt{statsmodels} 0.12.2.\cite{seabold2010statsmodels}
+
+In the second stage, the same odds ratios were calculated, using the same stratification, over the age- and gender-matched sample.
+This step, too, utilised Breslow-Day statistics for homogeneity \textit{inter strata} and the Cochran-Mantel-Haenszel test for calculating the pooled odds ratio.
+In addition, odds ratios by stratum were calculated and Fisher's exact test was performed to identify the statistical significance of odds ratios by stratum.
+
+Finally, odds ratios were calculated specifically for previous allergies.
+Using regular expressions, the \texttt{ALLERGIES} field of each VAERS entry was examined for 17 individual classes of allergens.
+Since this is a free text field, regular expressions had to be designed to capture most common ways of referring to a class of drugs or prominent instances thereof.
+The list below reproduces, in parentheses, exemplary items that would respond to the class's defining regular expressions.
+
+\begin{itemize}
+    \item Opioids (e.g. \texttt{CDN}, \texttt{Oxycontin}, \texttt{pentazocine})
+    \item Latex (e.g. \texttt{Latex})
+    \item Macrolide and aminoglycoside antibiotics (e.g. \texttt{azithromycin}, \texttt{Z-pack})
+    \item Tetracycline antibiotics (e.g. \texttt{tigecycline}, \texttt{doxycycline})
+    \item Sulfas (e.g. \texttt{Bactrim}, \texttt{sulfonamides})
+    \item Beta-lactam antibiotics (e.g. \texttt{Augmentin}, \texttt{penicillin}, \texttt{cefazolin})
+    \item Fluoroquinolone antibiotics (e.g. \texttt{Cipro}, \texttt{levofloxacin})
+    \item Hydrochlorothiazide (e.g. \texttt{HCTZ}, \texttt{hydrochlorothiazide})
+    \item Glycols (e.g. \texttt{PEG}, \texttt{propylene glycol})
+    \item Local anaesthetics (e.g. \texttt{lidocaine})
+    \item Known vaccine hypersensitivities (e.g. \texttt{Hepatitis vaccine}, \texttt{Prevnar})
+    \item Fish and seafood (e.g. \texttt{mussels}, \texttt{crab}, \texttt{seafood})
+    \item Insect stings (e.g. \texttt{bee venom}, \texttt{wasps}, \texttt{bee strings})
+    \item Eggs (e.g. \texttt{egg whites}, \texttt{egg protein})
+    \item NSAIDs (e.g. \texttt{Motrin}, \texttt{Aspirin}, \texttt{naproxen})
+    \item Peanuts and tree nuts (e.g. \texttt{walnuts}, \texttt{peanuts})
+\end{itemize}
+
+For the statistical analysis of stated allergies, only entries with a valid entry in the \texttt{ALLERGY} field were considered, and no crude (unmatched) values were calculated.
 
 \section{Results}
 
