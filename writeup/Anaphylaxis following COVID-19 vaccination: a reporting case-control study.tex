@@ -39,7 +39,7 @@
 \onehalfspacing
 
 \begin{abstract}
-    \textbf{Background:}
+    \noindent \textbf{Background:}
         mRNA vaccines are a novel method of eliciting immunity, and play a significant role in the global fight against COVID-19.
         Anaphylactic reactions are a widespread concern driving vaccine hesitancy due to the serious and potentially fatal nature of anaphylaxis.
         A quantitative estimation of the risk of anaphylactic and anaphylactoid reactions deriving from mRNA vaccines is of a significant public health importance. \\
@@ -55,12 +55,12 @@
         Overall and stratified Reporting Odds Ratios (ROR) were calculated.
         Stratified contingency tables were tested for homogeneity using the Breslow-Day procedure, and Cochran-Mantel-Haenszel statistics were calculated to test the hypothesis of a ROR of unity. \\
     \textbf{Results:}
-        A comparison of 2,665 cases of anaphylaxis or anaphylactoid reactions and 7,125 controls of non-anaphylactic/anaphylactoid reports were compared.
+        2,665 cases of anaphylaxis or anaphylactoid reactions and 7,125 controls of non-anaphylactic/anaphylactoid reports were compared.
         The ROR of an anaphylactic or anaphylactoid reaction was 1.325 (95\% CI: 1.212 -- 1.448, $p < 0.001$).
-        The matched set of cases and controls did not reveal inhomogeneity by gender or age band strata, suggesting that these factors have no impact on the likelihood to report an anaphylactic event as opposed to a non-anaphylactic event following mRNA vaccination. \\
+        The matched set of cases and controls revealed an expected inhomogeneity by sex (with women slightly more likely to report anaphylactic presentations) and age band strata (with a bimodal distribution that reflects the common incidence of anaphylactic and allergic pathologies).
+        No significant increase in the risk of anaphylactic adverse events was witnessed among persons who self-reported previous allergic reactions to vaccines.
         A slightly elevated ROR was observed with patients who reported a history of allergic reactions to NSAIDs and/or fluoroquinolone antibiotics.
-        The precise meaning and relevance of this finding remains to be elucidated.
-        Previous reactions to vaccines do not appear to correlate statistically significantly with a higher risk of reporting an anaphylactic adverse effect after mRNA vaccination. \\
+        The precise meaning and relevance of this finding remains to be elucidated.\\
     \textbf{Limitations:}
         As a reporting study using data from VAERS, our analysis is subject to under- and overreporting, the extent of each of which is not known with any degree of precision.
         Since the Emergency Use Authorizations for both mRNA vaccines mandate reporting of all serious adverse events, reporting bias is likely in favour of non-mRNA vaccines, where such reporting is not mandatory in adults.
@@ -96,10 +96,8 @@ The objective of this study was threefold:
 \end{enumerate}
 
 It was hypothesised at the outset that the mRNA-based vaccines would not be associated with a statistically significant elevated ROR ($ROR > 3.0$ at $p < 0.05$) in the whole-population samples.
-In addition, we hypothesised with respect to the breakdown by sex that while women would be slightly more likely to present with anaphylactic events due to the higher prevalence of anaphylaxis in women in general,\cite{salvati2019gender} the relative difference as measured by Breslow-Day statistics of contingency tables stratified by gender would not be statistically significant.
-We further hypothesised that age strata would also not play a significant role.
-It was expected that relative homogeneity and Cochran-Mantel-Haenszel statistics of age-stratified contingency tables would confirm a pooled odds ratio quite close to unity and a relatively high degree of homogeneity between age band strata.
-
+In addition, we hypothesised with respect to the breakdown by sex that while women would be slightly more likely to present with anaphylactic events due to the higher prevalence of anaphylaxis in women in general,\cite{salvati2019gender} the relative difference in odds ratios would be quite modest.
+We further hypothesised that age strata would also yield a statistically significant inhomogeneity, but that the effect, here, too, would be quite low.
 
 \section{Methods}
 
@@ -119,7 +117,8 @@ These were matched against controls from the same subset of VAERS reports that r
 
 Comparative statistical analyses were then utilised to determine statistical associations of risk.
 In particular, stratified odds ratios were calculated for both the crude and the age- and gender-matched sets of reports by gender, age band and reported pre-existing hypersensitivities.
-Cochran-Mantel-Haenszel statistics were used to determine pooled reporting odds ratios by strata, while inter-strata homogeneity was tested using the Breslow-Day metric.
+For stratified tables, the Breslow-Day statistic was used to test for homogeneity \textit{inter strata} and Cochran-Mantel-Haenszel statistics were used to test for the hypothesis that the pooled odds ratios equal unity.
+Where odds ratios were calculated per strata, Fisher's exact test was used to determine independence of variables.
 
 \subsection{Data sources}
 
@@ -185,7 +184,7 @@ Preferred Terms that are considered an anaphylactic reaction are set in bold typ
 \end{table}
 
 While MedDRA offers a Standardised MedDRA Query (SMQ) corresponding to anaphylaxis, this includes a wide range of clinical entities.
-Some would introduce unnecessary confounders (such as hereditary anaphylactic disorders like C1 esterase deficiency), while others would lay the analysis open to clearly unconnected events (such as transfusion related anaphylactic events).
+Some would introduce unnecessary confounders (such as hereditary disorders presenting with anaphylactic symptoms or angioedema, e.g. C1 esterase inhibitor deficiency), while others would lay the analysis open to clearly unconnected events (such as transfusion related anaphylactic events).
 For this reason, we chose to construe anaphylaxis narrowly.
 This yielded 2,665 cases of anaphylactic or anaphylactoid symptoms.
 
@@ -262,15 +261,16 @@ mRNA vaccine exposure &                    &                    \\
 \subsection{Statistical analysis}
 
 For the purposes of stratification (but not matching), ages were divided into age bands, with a separate age band for persons under the age of 18, 18-25 and thereafter in ten-year increments until the age of 95.
-A residual age band for persons aged 96 and above was constructed. Following this segmentation, the analysis proceeded in three stages.
+A residual age band for persons aged 96 and above was constructed.
+Following this segmentation, the analysis proceeded in three stages.
 
 First, crude odds ratios were calculated for the entire sample before matching, along with pooled odds ratios by sex and age band.
-For the analysis of stratified contingency tables, the Breslow-Day statistics were used to test for the homogeneity of odds ratios and the Cochran-Mantel-Haenszel test was used to arrive at a pooled odds ratio.
+For the analysis of stratified contingency tables, the Breslow-Day statistics were used to test for the homogeneity of odds ratios and the Cochran-Mantel-Haenszel test was used to test for a pooled odds ratio of unity.
 Statistical analysis used the \texttt{StratifiedTable} class of \texttt{statsmodels} 0.12.2.\cite{seabold2010statsmodels}
 
 In the second stage, the same odds ratios were calculated, using the same stratification, over the age- and gender-matched sample.
-This step, too, utilised Breslow-Day statistics for homogeneity \textit{inter strata} and the Cochran-Mantel-Haenszel test for calculating the pooled odds ratio.
-In addition, odds ratios by stratum were calculated and Fisher's exact test was performed to identify the statistical significance of odds ratios by stratum.
+This step, too, utilised Breslow-Day statistics for homogeneity \textit{inter strata} and the Cochran-Mantel-Haenszel test was used to test for a pooled odds ratio of unity.
+Where appropriate, i.e. where the Breslow-Day statistics indicated inhomogeneity, odds ratios by stratum were calculated and Fisher's exact test was performed to identify their statistical significance.
 
 Finally, odds ratios were calculated specifically for previous allergies.
 Using regular expressions, the \texttt{ALLERGIES} field of each VAERS entry was examined for 17 individual classes of allergens.
@@ -311,12 +311,10 @@ Persons reporting an anaphylactic event are thus, as hypothesised (see Subsectio
 It was one of our initial hypotheses that the ROR of anaphylactic events after mRNA vaccines would be slightly higher for women due to the overall higher prevalence of anaphylaxis in female populations, but that such difference would not be highly statistically significant (see Subsection~\ref{subsec:objectives}]).
 This is confirmed by the results of our analysis, but the overall size of the effect is, as predicted, quite low.
 
-The ROR for female recipients (1.462, 95\% CI: 1.316 -- 1.624) was slightly higher than for male recipients (1.133, 95\% CI: 0.937 -- 1.370), and unlike for the latter group, it was statistically significant.
-However, the Breslow-Day test, significant at $p < 0.05$, indicated a high level of homogeneity between gender strata.
-The Cochran-Mantel-Haenszel statistic, significant at $p < 0.001$, further supported a high likelihood of a common ROR of unity.
-
-Consequently, the data appears to confirm that after matching, gender is not a factor of significant influence on the reported association between mRNA vaccines and reports of anaphylaxis.
-This analysis thus does not evidence a statistically significant gender-dependent differential risk of anaphylaxis.
+The ROR for female recipients (1.462, 95\% CI: 1.316 -- 1.624) was slightly higher than for male recipients (1.133, 95\% CI: 0.937 -- 1.370), and unlike for the latter group, it was statistically significant (at $p < 0.001$).
+The Breslow-Day statistic ($\chi^2$ = 5.314, $p$ = 0.021) was statistically significant, allowing us to reject the null hypothesis that the strata have a common odds ratio.
+As such, the statistical analysis confirms our hypothesis of a higher anaphylactic risk for female recipients, but the overall odds ratios suggest that this difference is quite modest at best.
+This analysis thus does not evidence a highly significant sex-dependent differential risk of anaphylaxis.
 
 \subsection{Age and anaphylaxis risk}
 
@@ -327,25 +325,29 @@ This analysis thus does not evidence a statistically significant gender-dependen
 \label{fig:age-forest-plot}
 \end{figure}
 
-The Breslow-Day test, significant at $p < 0.005$, indicates that despite small inhomogeneities that derive from the characteristic age-dependent demographics of anaphylaxis,\cite{lee2011anaphylaxis} the recipient's age band was not a statistically significant confounder after matching.
-The Cochran-Mantel-Haenszel statistic, which was significant at $p < 0.001$, confirmed a common ROR of unity.
-
+The Breslow-Day test ($\chi^2 = 25.934$, $p = 0.001$) once again indicates heterogeneity between age bands.
 As Figure~\ref{fig:age-forest-plot} indicates, only five age bands (26 -- 35, 46 -- 55, 56 -- 65, 66 -- 76 and 76 -- 85) show statistically significant results.
 In all of these cases, the reporting odds ratio is modestly above unity but below 2.0, the minimum value commonly agreed to be the lowest possible cut-off for signal generation.
-Taken together, it appears from the data that the risk of anaphylactic reactions is not strongly associated with the recipient's age.
-Consequently, no age-dependent safety signals vis-a-vis anaphylaxis emerge from this analysis, and mRNA vaccines are according to this data not statistically significantly less safe than non-mRNA vaccines, regardless of age group.
+Taken together, it appears from the data that the risk of anaphylactic reactions bears a statistically significant relationship to the likelihood of having received an mRNA vaccine, but that the difference in likelihood is quite small.
+The age distribution suggests a weak bimodal distribution, peaking in the 26 -- 35 age range and once again, much stronger, for the 56 -- 65 and 66 -- 75 age groups.
+This reflects on one hand the commonly evidenced peak age of anaphylaxis in the fourth decade of life,\cite{lee2017trends} along with the relatively higher proportion of elderly vaccine recipients with comorbidities that are associated with allergic or anaphylactic presentations.
+
+Considered as a whole, there are clear age differences in the risk of anaphylaxis, with recipients in the sixth to eighth decade of their lives at highest risk.
+Nevertheless, this differential increase in risk is very low, and in no age group is there evidence of a strong safety signal.
+Consequently, no age-dependent safety signals vis-a-vis anaphylaxis emerge from this analysis.
+As hypothesised, the data confirms mRNA vaccines are not statistically significantly less safe than non-mRNA vaccines, regardless of age group.
 
 \subsection{Previous allergies and anaphylaxis risk}
 
 Of the 17 classes of allergens isolated from the \texttt{ALLERGY} free text field, 14 (82.4\%) were detected in both the control and case groups.
-Breslow-Day analysis indicated that the strata were not significantly homogenous ($p = 0.204$).
-This is highly suggestive of significant differences among allergic predispositions and anaphylaxis in mRNA vaccines.
+A Breslow-Day statistic of $\chi^2 = 16.795$ at $p = 0.209$ indicates that we cannot reject a null hypothesis of homogeneity.
+The Cochran-Mantel-Haenszel metric ($\chi^2 = 9.666$, $p = 0.002$) suggests that in the presence of homogeneity, the shared odds ratio is not statistically significantly likely to be at unity.
+This evidence suggests that while individuals who have previous allergic aetiologies might experience anaphylaxis following mRNA vaccines at a slightly higher rate (pooled ROR: 1.367, 95\% CI: 1.122 -- 1.666) than the general population (ROR: 1.325, 95\% CI: 1.212 -- 1.448), no individual allergic predisposition is likely to strongly predispose to anaphylaxis following mRNA vaccination.
 
-Of the 14 relevant categories of allergies, only two were statistically significant.
+This is reflected by the fact that of the 14 relevant categories of allergies, only two were statistically significant.
 It is notable that these two had also the highest RORs, and the only RORs exceeding 2 (see Figure~\ref{fig:allergies-forest-plot}).
 Pre-existing allergies to NSAIDs (ROR: 3.382, 95\% CI: 1.362 -- 8.399, $p < 0.01$) and fluoroquinolone antibiotics (ROR: 5.586, 95\% CI: 1.119 -- 27.900) are associated with higher RORs of anaphylactic reactions.
 Notably, there is no statistically significant association between pre-existing reports of allergic events (of any severity) from other vaccines, which is in line with the fundamental biochemical and compositional differences between mRNA vaccines and non-mRNA vaccines.
-
 
 \begin{figure}
 \centering
@@ -362,11 +364,11 @@ Notably, there is no statistically significant association between pre-existing 
 We hypothesised that mRNA-based vaccines do not have a specific anaphylactogenic property, i.e. that they are not associated with a statistically significant elevated odds ratio in the whole population.
 The overall ROR after matching for age and gender of 1.325 (95\% CI: 1.212 -- 1.448), significant at $p<0.001$, confirms this hypothesis.
 
-This hypothesis holds age and gender notwithstanding, as the Breslow-Day uniformity metrics of the contingency tables stratified by gender and age band have indicated.
-In both cases, statistically significant values of the Breslow-Day test suggest uniformity across strata, and Cochran-Mantel-Haenszel statistics support a ROR of unity.
-In other words, this study has found no evidence that mRNA vaccines have a higher reporting odds ratio of anaphylactic events, and this property holds true across age groups and genders.
+Age and gender have a clear differential effect on the likelihood of developing an anaphylactic reaction following mRNA vaccination.
+However, the size of this effect is extremely modest.
+In both cases, the highest RORs with statistical significance are still below 2.0, indicative of a weak association but no safety signal of note.
 
-Consequently, the conclusions of this study lend further support to the evidence that mRNA-based vaccines are not unusually anaphylactogenic in all age groups and genders.
+The conclusions of this study lend further support to the evidence that mRNA-based vaccines are not unusually anaphylactogenic in all age groups and genders.
 This contribution goes beyond COVID-19 vaccines, and may serve as a building block of a wider case for the safety of mRNA-based vaccinations.
 There is no evidence of a specific anaphylactogenic effect above and beyond other vaccines when it comes to mRNA-based vaccines.
 This finding may help in addressing legitimate fears of anaphylaxis both in clinical practice and in the wider communication of public health measures.
@@ -374,13 +376,16 @@ This finding may help in addressing legitimate fears of anaphylaxis both in clin
 
 \subsection{Previous allergies do not predispose to higher risk of anaphylaxis from mRNA vaccines}
 
-From the analysis above, it appears that previously known allergies to NSAIDs and fluoroquinolones might correlate to a slightly elevated odds ratio of reporting anaphylactic reactions.
-The source of this, as well as its physiological basis, remains open for further research.
+From the analysis above, it appears that no previous allergy significantly predisposes to anaphylaxis following mRNA vaccination, even if in a population that has previous allergies, anaphylactic reactions might, unsurprisingly, be marginally more frequent.
+Two statistically significant data points stand out from the rest.
+Previously known allergies to NSAIDs (ROR: 3.382, 95\% CI: 1.362 -- 8.399) and fluoroquinolone antibiotics (ROR: 5.586, 95\% CI: 1.119 -- 27.900) might correlate to a somewhat elevated odds ratio of reporting anaphylactic reactions.
+The source of this effect, as well as its physiological basis, remains open for further research.
 One might consider, for instance, that NSAID-induced bronchoconstriction is significantly more frequent among patients with asthma,\cite{morales2015nsaid} which in turn tends to correlate with higher rates of anaphylaxis.
 Thus, the presence of a known NSAID allergy might in fact reflect a predisposition to atopy and allergic reactions, and therefore result in higher odds of anaphylaxis.
 An alternate hypothesis may be that at least some NSAID allergies, such as those to ketorolac (Toradol), might be triggered by the tromethamine ligand present in some formulations (in the case of ketorolac, ketorolac tromethamine), as well as the Moderna vaccine (but not the Pfizer/BioNTech vaccine).
 Evidence is currently not sufficiently strong to either support or reject such a hypothesis, either.
-Further research on predisposing factors is clearly needed.
+Further research on predisposing factors is clearly needed, and absent more evidence, it cannot be said with confidence that persons with previous allergic histories to NSAIDs or fluoroquinolone antibiotics are at a higher risk of developing anaphylactic adverse effects following mRNA vaccinations.
+For clinical practice, emphasis should remain on the safety of mRNA vaccination in patients even with extensive prior allergic histories.
 
 The risk from such predispositions must, of course, be considered in the quantitative context.
 The ROR is at best modestly increased for both NSAIDs and fluoroquinolones, and is overall vanishingly small when considered against the number of vaccinations.
@@ -421,7 +426,7 @@ We tried to compensate for this through regular expressions that are robust to s
 
 Our analysis of anaphylactic events between 01 January 2000 and 02 July 2021 indicates no statistically significant increase in the risk of anaphylactic or anaphylactoid adverse events in the context of mRNA-based vaccines.
 As such, it adds to a growing body of evidence in favour of the safety and tolerability of such vaccines.\cite{chu2021preliminary,baden2021efficacy,anderson2020safety}
-Of particular note is that neither age nor gender appear to constitute differential risk factors for anaphylaxis following mRNA vaccination.
+Of particular note is that neither age nor gender appear to constitute significant, non-trivial differential risk factors for anaphylaxis following mRNA vaccination.
 Furthermore, previous allergic reactions to vaccines are also not associated with a statistically significant increase in risk.
 While there is a slight increase in risk for persons with known hypersensitivities to NSAIDs and/or fluoroquinolone antibiotics, the precise extent of this, as well as the underlying physiological mechanism, remains for further study.
 
